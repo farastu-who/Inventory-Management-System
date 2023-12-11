@@ -1,22 +1,24 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from backend.api.inventory_routes import inventory_blueprint
-from backend.api.order_routes import orders_blueprint
-from backend.api.supplier_routes import suppliers_blueprint
+from backend.api.inventory_routes import inventory_bp
+from backend.api.order_routes import orders_bp
+from backend.api.supplier_routes import suppliers_bp
+
+db = SQLAlchemy(app)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inventory.db'  # Using SQLite
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Initialize the SQLAlchemy app, after the Flask app is created
+db.init_app(app)
+
 # Register blueprints
-app.register_blueprint(inventory_blueprint, url_prefix='/inventory')
-app.register_blueprint(orders_blueprint, url_prefix='/order')
-app.register_blueprint(suppliers_blueprint, url_prefix='/supplier')
-
-
-db = SQLAlchemy(app)
-
+app.register_blueprint(inventory_bp, url_prefix='/inventory')
+app.register_blueprint(orders_bp, url_prefix='/order')
+app.register_blueprint(suppliers_bp, url_prefix='/supplier')
 
 if __name__ == '__main__':
-    db.create_all()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
