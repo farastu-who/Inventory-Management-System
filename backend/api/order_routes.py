@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from app import db
 from models.order import Order
 from datetime import datetime
@@ -24,15 +24,12 @@ def create_order():
 
 @order_bp.route('/orders', methods=['GET'])
 def get_orders():
-    orders = Order.query.all()
-    orders_data = [{
-        'order_id': order.order_id,
-        'supplier_id': order.supplier_id,
-        'item_id': order.item_id,
-        'quantity': order.quantity,
-        'date': order.date.strftime('%m/%d/%y')  # Format the date to string
-    } for order in orders]
-    return jsonify(orders_data), 200
+    try:
+        orders = Order.query.all()
+        return render_template('orders.html', orders=orders)
+    except Exception as e:
+        return render_template('error.html', error=str(e)) 
+
 
 @order_bp.route('/orders/<int:order_id>', methods=['GET'])
 def get_order(order_id):

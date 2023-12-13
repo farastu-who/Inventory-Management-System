@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Inventory Management System</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Inventory</span> Management System</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="{{ 'current' if request.endpoint == 'index' else '' }}"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="{{ 'current' if request.endpoint == 'inventory' else '' }}"><a href="{{ url_for('inventory') }}">Inventory</a></li>
+                    <li class="{{ 'current' if request.endpoint == 'orders' else '' }}"><a href="{{ url_for('orders') }}">Orders</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

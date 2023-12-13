@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from app import db
 from models.inventory import Inventory
 
@@ -25,9 +25,9 @@ def add_inventory_item():
 def get_inventory():
     try:
         inventory_items = Inventory.query.all()
-        return jsonify([item.serialize() for item in inventory_items]), 200
+        return render_template('inventory.html', inventory_items=inventory_items)
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return render_template('error.html', error=str(e))  
 
 @inventory_bp.route('/inventory/<int:item_id>', methods=['GET'])
 def get_inventory_item(item_id):
