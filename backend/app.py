@@ -4,12 +4,11 @@ from backend.api.inventory_routes import inventory_bp
 from backend.api.order_routes import orders_bp
 from backend.api.supplier_routes import suppliers_bp
 
-db = SQLAlchemy(app)
-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inventory.db'  # Using SQLite
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///IMS.db'  
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+db = SQLAlchemy(app)
 # Initialize the SQLAlchemy app, after the Flask app is created
 db.init_app(app)
 
