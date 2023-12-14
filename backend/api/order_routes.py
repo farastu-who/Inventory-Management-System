@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, render_template
-from app import db
+from db import db
 from models.order import Order
 from datetime import datetime
 

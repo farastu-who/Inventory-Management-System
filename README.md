@@ -31,3 +31,10 @@ It ensures that the inventory is monitored continuously or as per the defined sc
 
 Use publisher.py in the stock checking logic. Whenever a low-stock item is identified, publish_message() is called with the appropriate item details.
 consumer.py is run as a separate, long-running process. It will continuously listen for messages on the RabbitMQ queue and trigger email notifications.
+
+## db
+
+Database Connection in app.py
+Database Configuration: The application is configured to use SQLite as the database, as indicated by the line app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///IMS.db'. This sets up a SQLite database named IMS.db.
+SQLAlchemy Initialization: SQLAlchemy is used as the ORM (Object-Relational Mapping) tool. It's initialized with the Flask app.
+Blueprint Registration: Blueprints for inventory, orders, and suppliers are registered, which are defined in the api folder.

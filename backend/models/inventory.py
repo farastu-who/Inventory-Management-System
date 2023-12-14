@@ -1,7 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from app import db
-
-db = SQLAlchemy()
+from db import db
 
 class Inventory(db.Model):
     item_id = db.Column(db.Integer, primary_key=True)
